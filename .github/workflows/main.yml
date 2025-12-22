@@ -41,7 +41,7 @@ jobs:
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
     with:
       source_repo: 'Minerchu/dongguaTV'
-      docker_image_name: 'donggua-tv'
+      docker_image_name: ''
       use_compose_build: true
       compose_file_path: 'docker-compose.yml'
       additional_files_to_copy: '[{"source": ".env.example", "destination": ".env"}]'
