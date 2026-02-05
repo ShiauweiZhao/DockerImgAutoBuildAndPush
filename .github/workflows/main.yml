@@ -10,14 +10,14 @@ on:
 
 jobs:
 
-  # 构建li88iioo/Photonix项目（单个Dockerfile在根目录）
+  # 构建ShiauweiZhao/Photonix项目（单个Dockerfile在根目录）
   build-photonix:
     uses: ./.github/workflows/build.yml
     secrets:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
     with:
-      source_repo: 'li88iioo/Photonix'
+      source_repo: 'ShiauweiZhao/Photonix'
       docker_image_name: 'photonix'
 
   # 使用docker-compose构建BiliNote项目（推荐方式）
