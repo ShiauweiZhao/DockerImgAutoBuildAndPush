@@ -59,6 +59,7 @@ jobs:
     secrets:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+      SOURCE_REPO_TOKEN: ${{ secrets.SOURCE_REPO_TOKEN }}
     with:
       source_repo: 'ShiauweiZhao/tgautodown'
       docker_image_name: 'tgautodown'
@@ -66,11 +67,17 @@ jobs:
   # 清除旧的workflow运行记录
   cleanup-workflow-runs:
     runs-on: ubuntu-latest
+    env:
+      CLEANUP_TOKEN: ${{ secrets.CLEANUP_TOKEN }}
     steps:
       - name: 删除旧 Actions
+        if: ${{ env.CLEANUP_TOKEN != '' }}
         uses: Mattraks/delete-workflow-runs@main
         with:
-          token: ${{ secrets.CLEANUP_TOKEN }}
+          token: ${{ env.CLEANUP_TOKEN }}
           repository: ${{ github.repository }}
           retain_days: 0
           keep_minimum_runs: 2
+      - name: 跳过删除旧 Actions
+        if: ${{ env.CLEANUP_TOKEN == '' }}
+        run: echo "CLEANUP_TOKEN 未配置，跳过删除旧 Actions。"

@@ -51,6 +51,9 @@ on:
         required: true
       DOCKERHUB_TOKEN:
         required: true
+      # 访问私有源码仓库时使用；不传则使用当前 workflow 的 GITHUB_TOKEN
+      SOURCE_REPO_TOKEN:
+        required: false
 
 jobs:
   build:
@@ -66,6 +69,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: ${{ inputs.source_repo }}
+          token: ${{ secrets.SOURCE_REPO_TOKEN || github.token }}
           path: target-repo
 
       - name: 复制自定义Dockerfile到目标仓库
